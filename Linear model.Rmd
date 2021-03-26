@@ -40,7 +40,13 @@ basicNN + geom_point() + geom_smooth(method=lm)
 model1=lm(SIMS~ARM,data=data)
 summary(model1)
 ```
-adjusted R-squared is 0.467 
+Adjusted R-squared is 0.467.
+
+```{r}
+newdata=data.frame(GRIP=94, ARM=88)
+predict(model1, newdata, interval="prediction")
+```
+
 
 ###Plot scatterplot
 
@@ -64,5 +70,21 @@ model2=lm(SIMS~GRIP,data=data)
 summary(model2)
 ```
 
+```{r}
+predict(model2, newdata, interval="prediction")
+```
+
+
 The adjusted R square for model2 .4053, because this is smaller compared to model1 it just goes to show that model1 is a better fit.
+
+# Inferential  (Build linear model)
+  
+```{r}
+model3 <- lm(SIMS~ARM + GRIP,data=data)
+summary.lm(model3)
+```
+
+```{r}
+
+```
 
