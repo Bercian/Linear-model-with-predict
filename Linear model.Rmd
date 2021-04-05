@@ -19,22 +19,24 @@ Read about the data from the website where it is staged.  Then form three regres
 data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
 ```
 
-###Plot scatterplot
+### Plot scatterplot
 
 ```{r}
 plot(SIMS~ARM,data=data)
 ```
 
-##Now with ggplot - first select the basic data
+## Now with ggplot - first select the basic data
 
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
 ```
-##Now add in scatterplot
+## Now add in scatterplot
 
 ```{r}
 basicNN + geom_point() + geom_smooth(method=lm)
 ```
+
+The plot for ARM shows a reasonable fit points tend tobe scattered about the line.
 
 ```{r}
 model1=lm(SIMS~ARM,data=data)
@@ -48,27 +50,30 @@ predict(model1, newdata, interval="prediction")
 ```
 
 
-###Plot scatterplot
+### Plot scatterplot
 
 ```{r}
 plot(SIMS~GRIP,data=data)
 ```
 
-##Now with ggplot - first select the basic data
+## Now with ggplot - first select the basic data
 
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=GRIP))
 ```
-##Now add in scatterplot
+## Now add in scatterplot
 
 ```{r}
 basicNN + geom_point() + geom_smooth(method=lm)
 ```
+The linear fit is not bad points tend to be scattered about the line.
 
 ```{r}
 model2=lm(SIMS~GRIP,data=data)
 summary(model2)
 ```
+
+The adjusted R squared for GRIP only is 0.4053. This is smaller then the adjusted ARM R squared.
 
 ```{r}
 predict(model2, newdata, interval="prediction")
@@ -84,7 +89,9 @@ model3 <- lm(SIMS~ARM + GRIP,data=data)
 summary.lm(model3)
 ```
 
+The adjusted R squared is .5358. This is the largest out of all three models.
+
 ```{r}
-
+anova(model1,model3)
 ```
-
+The anova compares the two models the null hypothesis is no difference between the models the p-value is so small that we reject the null hypothesis. Based on residual standerd errors the model for ARM plus GRIP is better.
